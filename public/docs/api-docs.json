@@ -1,0 +1,1450 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Find My MUA API",
+        "description": "Dokumentasi lengkap API untuk aplikasi Find My MUA",
+        "version": "1.0"
+    },
+    "paths": {
+        "/api/auth/register/customer": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Register akun customer",
+                "operationId": "c81d00e1ecfd7741678133c0711c8076",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "email",
+                                    "password",
+                                    "password_confirmation",
+                                    "skin_tone",
+                                    "skin_type"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Anna"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "anna@example.com"
+                                    },
+                                    "phone": {
+                                        "type": "string",
+                                        "example": "08123456789"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "secret123"
+                                    },
+                                    "password_confirmation": {
+                                        "type": "string",
+                                        "example": "secret123"
+                                    },
+                                    "skin_tone": {
+                                        "type": "string",
+                                        "example": "sawo matang"
+                                    },
+                                    "skin_type": {
+                                        "type": "string",
+                                        "example": "berminyak"
+                                    },
+                                    "skin_issues[]": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string"
+                                        },
+                                        "example": [
+                                            "jerawat",
+                                            "kering"
+                                        ]
+                                    },
+                                    "skincare_history": {
+                                        "type": "string",
+                                        "example": "The Ordinary, Hada Labo"
+                                    },
+                                    "allergies": {
+                                        "type": "string",
+                                        "example": "Fragrance, Alcohol"
+                                    },
+                                    "makeup_preferences": {
+                                        "type": "string",
+                                        "example": "natural, dewy"
+                                    },
+                                    "profile_photo": {
+                                        "type": "string",
+                                        "format": "binary"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Customer registered with skin profile"
+                    },
+                    "422": {
+                        "description": "Validasi gagal"
+                    }
+                }
+            }
+        },
+        "/api/auth/login/customer": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Login untuk Customer",
+                "operationId": "b989621d8e39b8be9db08d6e0548517f",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "anna@example.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "secret123"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Login berhasil",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "access_token": {
+                                            "type": "string"
+                                        },
+                                        "token_type": {
+                                            "type": "string",
+                                            "example": "Bearer"
+                                        },
+                                        "user": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Invalid credentials / unauthorized"
+                    }
+                }
+            }
+        },
+        "/api/auth/register/mua": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Registrasi akun MUA",
+                "operationId": "524b71b2b0b2ff51a736d4b0b68dbbd1",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "email",
+                                    "password",
+                                    "password_confirmation"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "MUA Rina"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "rina@example.com"
+                                    },
+                                    "phone": {
+                                        "type": "string",
+                                        "example": "08123456789"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "secret123"
+                                    },
+                                    "password_confirmation": {
+                                        "type": "string",
+                                        "example": "secret123"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "MUA registered successfully"
+                    },
+                    "422": {
+                        "description": "Validation error"
+                    }
+                }
+            }
+        },
+        "/api/auth/login/mua": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Login untuk MUA",
+                "operationId": "a704d398ef110bcf9c8606916bce336a",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "rina@example.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "secret123"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Login berhasil",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "access_token": {
+                                            "type": "string"
+                                        },
+                                        "token_type": {
+                                            "type": "string",
+                                            "example": "Bearer"
+                                        },
+                                        "user": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Invalid credentials / unauthorized"
+                    }
+                }
+            }
+        },
+        "/api/mua/{id}/availability": {
+            "get": {
+                "tags": [
+                    "Availability"
+                ],
+                "summary": "Lihat slot waktu yang masih tersedia untuk MUA",
+                "operationId": "0d94cecaa6534e79774a46d02dda5cf8",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "date",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "date"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Slot tersedia dikembalikan"
+                    }
+                }
+            }
+        },
+        "/api/chat/{booking_id}": {
+            "get": {
+                "tags": [
+                    "Chat"
+                ],
+                "summary": "Ambil pesan chat booking",
+                "operationId": "b1cf8c9f559d6e14f977a0de178ca99b",
+                "parameters": [
+                    {
+                        "name": "booking_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Daftar pesan chat"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Chat"
+                ],
+                "summary": "Kirim pesan chat",
+                "operationId": "1e8f036d2a33bfc276d7a055c0436b50",
+                "parameters": [
+                    {
+                        "name": "booking_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "message": {
+                                        "type": "string",
+                                        "example": "Halo Kak, lokasi kita di mana ya?"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Pesan terkirim"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/customer/bookings": {
+            "get": {
+                "tags": [
+                    "Booking"
+                ],
+                "summary": "Lihat semua booking milik customer",
+                "operationId": "a3442a0a9acd411936ad4f5673735660",
+                "responses": {
+                    "200": {
+                        "description": "Daftar booking"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Booking"
+                ],
+                "summary": "Buat booking baru",
+                "operationId": "753e234378345871167a3a04b155d307",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "mua_id": {
+                                        "type": "integer",
+                                        "example": 5
+                                    },
+                                    "service_id": {
+                                        "type": "integer",
+                                        "example": 3
+                                    },
+                                    "date": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2025-07-01"
+                                    },
+                                    "time": {
+                                        "type": "string",
+                                        "example": "14:00"
+                                    },
+                                    "payment_method": {
+                                        "type": "string",
+                                        "example": "transfer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Booking berhasil dibuat"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/booking/{id}/pay": {
+            "get": {
+                "tags": [
+                    "Payment"
+                ],
+                "summary": "Generate Midtrans Snap token & redirect URL untuk customer",
+                "operationId": "5a54f931b5d54520365a7957cbc41105",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Booking ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 7
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Berhasil menghasilkan Snap token",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "token": {
+                                            "type": "string",
+                                            "example": "snap-123abcxyz"
+                                        },
+                                        "redirect_url": {
+                                            "type": "string",
+                                            "example": "https://app.sandbox.midtrans.com/snap/v2/vtweb/xxxx"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Booking tidak ditemukan"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/customer/profile": {
+            "get": {
+                "tags": [
+                    "Profile"
+                ],
+                "summary": "Lihat profil customer",
+                "operationId": "c51a3beb07ccbc80dc25a3f5859c6ca7",
+                "responses": {
+                    "200": {
+                        "description": "Profil customer dikembalikan"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Profile"
+                ],
+                "summary": "Update profil customer",
+                "operationId": "22e88b2035c8b4840025602747807237",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "skin_tone": {
+                                        "type": "string",
+                                        "example": "sawo matang"
+                                    },
+                                    "skin_type": {
+                                        "type": "string",
+                                        "example": "berminyak"
+                                    },
+                                    "makeup_preferences": {
+                                        "type": "string",
+                                        "example": "natural, matte"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Profil diperbarui"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/customer/recommendations": {
+            "get": {
+                "tags": [
+                    "Recommendation"
+                ],
+                "summary": "Rekomendasi MUA berdasarkan preferensi & profil kulit customer",
+                "operationId": "f00dd839c869a54d6bd3a9773d75086b",
+                "responses": {
+                    "200": {
+                        "description": "List rekomendasi MUA"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/customer/reviews": {
+            "post": {
+                "tags": [
+                    "Review"
+                ],
+                "summary": "Customer menulis review setelah booking selesai",
+                "operationId": "ee01d8b044bd61c97109d04b6078e79b",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "booking_id": {
+                                        "type": "integer",
+                                        "example": 7
+                                    },
+                                    "rating": {
+                                        "type": "integer",
+                                        "example": 5
+                                    },
+                                    "comment": {
+                                        "type": "string",
+                                        "example": "Hasil makeup bagus dan awet!"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Review disimpan"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/customer/wishlist": {
+            "get": {
+                "tags": [
+                    "Wishlist"
+                ],
+                "summary": "Lihat daftar MUA favorit customer",
+                "operationId": "20457031bb55428501207fd21e4af2ef",
+                "responses": {
+                    "200": {
+                        "description": "Wishlist dikembalikan"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Wishlist"
+                ],
+                "summary": "Tambahkan MUA ke wishlist",
+                "operationId": "20395d3b98ab066a26636853eefa9406",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "mua_id": {
+                                        "type": "integer",
+                                        "example": 10
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Ditambahkan"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/customer/wishlist/{mua_id}": {
+            "delete": {
+                "tags": [
+                    "Wishlist"
+                ],
+                "summary": "Hapus MUA dari wishlist",
+                "operationId": "e2f6d2f213aa4913be29f3b4840df33e",
+                "parameters": [
+                    {
+                        "name": "mua_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Dihapus"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/me": {
+            "get": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Ambil data pengguna yang sedang login (Customer atau MUA)",
+                "operationId": "cc79b8acab2084c2447e751da1ea6ed4",
+                "responses": {
+                    "200": {
+                        "description": "Data pengguna",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "example": 7
+                                        },
+                                        "name": {
+                                            "type": "string",
+                                            "example": "Anna"
+                                        },
+                                        "email": {
+                                            "type": "string",
+                                            "example": "anna@example.com"
+                                        },
+                                        "role": {
+                                            "type": "string",
+                                            "example": "customer"
+                                        },
+                                        "profile": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/users": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Ambil semua user (admin/dev only)",
+                "operationId": "6a42825d70aa268c69a52ff169d067fe",
+                "responses": {
+                    "200": {
+                        "description": "Daftar semua user",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "id": {
+                                                "type": "integer",
+                                                "example": 1
+                                            },
+                                            "name": {
+                                                "type": "string",
+                                                "example": "Anna"
+                                            },
+                                            "email": {
+                                                "type": "string",
+                                                "example": "anna@example.com"
+                                            },
+                                            "role": {
+                                                "type": "string",
+                                                "example": "customer"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/midtrans/callback": {
+            "post": {
+                "tags": [
+                    "Payment"
+                ],
+                "summary": "Endpoint callback untuk notifikasi pembayaran dari Midtrans",
+                "operationId": "011045c2f22ca76223ee73ef2e389253",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "order_id": {
+                                        "type": "string",
+                                        "example": "BOOK-5-1719820000"
+                                    },
+                                    "transaction_status": {
+                                        "type": "string",
+                                        "example": "settlement"
+                                    },
+                                    "payment_type": {
+                                        "type": "string",
+                                        "example": "gopay"
+                                    },
+                                    "fraud_status": {
+                                        "type": "string",
+                                        "example": "accept"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Booking status updated"
+                    },
+                    "400": {
+                        "description": "Invalid request"
+                    },
+                    "404": {
+                        "description": "Booking not found"
+                    }
+                }
+            }
+        },
+        "/api/mua/bookings": {
+            "get": {
+                "tags": [
+                    "Booking"
+                ],
+                "summary": "Lihat semua booking untuk MUA",
+                "operationId": "3af2ad63f8140f7ab534cafaf1ff17a5",
+                "responses": {
+                    "200": {
+                        "description": "List booking untuk MUA"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/mua/bookings/{id}/status": {
+            "put": {
+                "tags": [
+                    "Booking"
+                ],
+                "summary": "Ubah status booking oleh MUA",
+                "operationId": "31daa28d293e50e38ba7bb2a75828b10",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID booking",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "status": {
+                                        "type": "string",
+                                        "example": "confirmed"
+                                    },
+                                    "payment_status": {
+                                        "type": "string",
+                                        "example": "paid"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Status booking diperbarui"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/mua/portfolio": {
+            "get": {
+                "tags": [
+                    "Portfolio"
+                ],
+                "summary": "Lihat portofolio MUA",
+                "operationId": "b95925c3aa0a1844b9037c3c91e6d5c4",
+                "responses": {
+                    "200": {
+                        "description": "Daftar portofolio"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Portfolio"
+                ],
+                "summary": "Upload portofolio baru",
+                "operationId": "a5dd501a92d7eb33f3a6e07d4ef3dec5",
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "image": {
+                                        "type": "string",
+                                        "format": "binary"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "Bridal look 2025"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Portofolio ditambahkan"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/mua/portfolio/{id}": {
+            "delete": {
+                "tags": [
+                    "Portfolio"
+                ],
+                "summary": "Hapus portofolio",
+                "operationId": "597fa1b4b7e43c7e38323af731e0a122",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Dihapus"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/mua/profile": {
+            "get": {
+                "tags": [
+                    "Profile"
+                ],
+                "summary": "Lihat profil MUA (private)",
+                "operationId": "5d6c4c4a9bcb4ee1288d7c566db3d2fe",
+                "responses": {
+                    "200": {
+                        "description": "Profil MUA"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Profile"
+                ],
+                "summary": "Update profil MUA",
+                "operationId": "26bac6f6c19ba7f0527ff5c0251c0ad7",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "bio": {
+                                        "type": "string",
+                                        "example": "Certified bridal MUA"
+                                    },
+                                    "certification": {
+                                        "type": "string"
+                                    },
+                                    "service_area": {
+                                        "type": "string"
+                                    },
+                                    "studio_lat": {
+                                        "type": "number"
+                                    },
+                                    "studio_lng": {
+                                        "type": "number"
+                                    },
+                                    "makeup_styles": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "makeup_specializations": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "skin_type": {
+                                        "description": "JSON array",
+                                        "type": "string"
+                                    },
+                                    "available_days": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "available_start_time": {
+                                        "type": "string",
+                                        "example": "08:00:00"
+                                    },
+                                    "available_end_time": {
+                                        "type": "string",
+                                        "example": "17:00:00"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Profil diperbarui"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Profile"
+                ],
+                "summary": "Tambahkan profil MUA (hanya pertama kali)",
+                "operationId": "f94d83ba5819efd9a595fbf1efdca1c4",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "bio",
+                                    "certification"
+                                ],
+                                "properties": {
+                                    "bio": {
+                                        "type": "string"
+                                    },
+                                    "certification": {
+                                        "type": "string"
+                                    },
+                                    "service_area": {
+                                        "type": "string"
+                                    },
+                                    "studio_lat": {
+                                        "type": "number"
+                                    },
+                                    "studio_lng": {
+                                        "type": "number"
+                                    },
+                                    "makeup_styles": {
+                                        "description": "JSON array",
+                                        "type": "string"
+                                    },
+                                    "makeup_specializations": {
+                                        "description": "JSON array",
+                                        "type": "string"
+                                    },
+                                    "skin_type": {
+                                        "description": "JSON array",
+                                        "type": "string"
+                                    },
+                                    "available_days": {
+                                        "description": "JSON array",
+                                        "type": "string"
+                                    },
+                                    "available_start_time": {
+                                        "type": "string",
+                                        "format": "time"
+                                    },
+                                    "available_end_time": {
+                                        "type": "string",
+                                        "format": "time"
+                                    },
+                                    "profile_photo": {
+                                        "type": "file"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Profil MUA berhasil dibuat"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/mua/{id}": {
+            "get": {
+                "tags": [
+                    "Profile"
+                ],
+                "summary": "Lihat profil publik MUA",
+                "operationId": "b8a4625af8a6d80324d6675f5b9e9abc",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Profil publik MUA"
+                    }
+                }
+            }
+        },
+        "/api/mua/reports": {
+            "get": {
+                "tags": [
+                    "Report"
+                ],
+                "summary": "Lihat laporan pendapatan dan statistik booking MUA",
+                "operationId": "6f64bcea0690f0b5bc667a5ff2ab33bf",
+                "parameters": [
+                    {
+                        "name": "year",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "month",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Laporan berhasil dikembalikan"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/mua/services": {
+            "get": {
+                "tags": [
+                    "Service"
+                ],
+                "summary": "Lihat semua layanan MUA",
+                "operationId": "54ab6405ccd1605e5e8c83f97d6a71f1",
+                "responses": {
+                    "200": {
+                        "description": "List layanan"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Service"
+                ],
+                "summary": "Buat layanan baru",
+                "operationId": "cef8ed4982a3b536d82afc21b47b7961",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Wedding Makeup"
+                                    },
+                                    "price": {
+                                        "type": "number",
+                                        "example": 1500000
+                                    },
+                                    "duration_minutes": {
+                                        "type": "integer",
+                                        "example": 90
+                                    },
+                                    "location_type": {
+                                        "type": "string",
+                                        "example": "home"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Layanan berhasil dibuat"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/notifications": {
+            "get": {
+                "tags": [
+                    "Notification"
+                ],
+                "summary": "Ambil notifikasi pengguna",
+                "operationId": "77ed4ddee94926a5e8732c891c460264",
+                "responses": {
+                    "200": {
+                        "description": "List notifikasi"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/notifications/read": {
+            "post": {
+                "tags": [
+                    "Notification"
+                ],
+                "summary": "Tandai semua notifikasi sebagai sudah dibaca",
+                "operationId": "4b3593831fc028c63931fc686d61d9d4",
+                "responses": {
+                    "200": {
+                        "description": "Berhasil ditandai"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/mua/search": {
+            "get": {
+                "tags": [
+                    "Search"
+                ],
+                "summary": "Cari MUA berdasarkan gaya, spesialisasi, harga",
+                "operationId": "0bbfcd2da7269f806e33fe24a599d918",
+                "parameters": [
+                    {
+                        "name": "style",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "specialization",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "min_price",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "max_price",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Hasil pencarian"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Auth",
+            "description": "Auth"
+        },
+        {
+            "name": "Availability",
+            "description": "Availability"
+        },
+        {
+            "name": "Chat",
+            "description": "Chat"
+        },
+        {
+            "name": "Booking",
+            "description": "Booking"
+        },
+        {
+            "name": "Payment",
+            "description": "Payment"
+        },
+        {
+            "name": "Profile",
+            "description": "Profile"
+        },
+        {
+            "name": "Recommendation",
+            "description": "Recommendation"
+        },
+        {
+            "name": "Review",
+            "description": "Review"
+        },
+        {
+            "name": "Wishlist",
+            "description": "Wishlist"
+        },
+        {
+            "name": "User",
+            "description": "User"
+        },
+        {
+            "name": "Portfolio",
+            "description": "Portfolio"
+        },
+        {
+            "name": "Report",
+            "description": "Report"
+        },
+        {
+            "name": "Service",
+            "description": "Service"
+        },
+        {
+            "name": "Notification",
+            "description": "Notification"
+        },
+        {
+            "name": "Search",
+            "description": "Search"
+        }
+    ]
+}
